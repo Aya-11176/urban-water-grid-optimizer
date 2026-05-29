@@ -12,11 +12,7 @@ print("==================================================================\n")
 
 
 os.makedirs("images", exist_ok=True)
-
-# --------------------------------------------------------
 # STAGE 1 and 2: MATHEMATICAL MODELS (AHP, GINI, HURWICZ)
-# --------------------------------------------------------
-
 def get_ahp_weights():
     
     matrix = np.array([
@@ -44,10 +40,7 @@ def get_gini_weights(G):
 def apply_hurwicz(min_val, max_val, alpha=0.6):
     return alpha * max_val + (1 - alpha) * min_val
 
-# --------------------------------------------------------
 # FIXING THE OVERLAP: DESIGNING AN EXPLICIT SPACED LAYOUT
-# --------------------------------------------------------
-
 def get_perfect_spaced_layout():
     
     pos = {
@@ -64,9 +57,7 @@ def get_perfect_spaced_layout():
     }
     return pos
 
-# --------------------------------------------------------
-# DIAGRAM 1 & 2: GENERATING CRITICAL COMPARATIVE NETWORKS
-# --------------------------------------------------------
+# DIAGRAM 1 AND 2: GENERATING CRITICAL COMPARATIVE NETWORKS
 
 def generate_network_blueprints():
     print("[Simulation] Generating Spaced-Out Simulation Maps (N=10)...")
@@ -88,9 +79,8 @@ def generate_network_blueprints():
         best_case = base_c * (ahp_w[0]*1.2 + ahp_w[1]*1.1)
         G[u][v]['smart_capacity'] = int(apply_hurwicz(worst_case, best_case, alpha=0.6))
 
-    # الحساب الكلاسيكي (Pure FF)
+    
     flow_val_pure, flow_dict_pure = nx.maximum_flow(G, 0, 9, capacity='capacity')
-    # الحساب الذكي المعدل بالـ Hurwicz
     flow_val_smart, flow_dict_smart = nx.maximum_flow(G, 0, 9, capacity='smart_capacity')
 
     pos = get_perfect_spaced_layout()
@@ -121,9 +111,7 @@ def generate_network_blueprints():
     plt.close()
     print(" -> Success: Diagrams 1 & 2 generated without overlaps.")
 
-# --------------------------------------------------------
 # DIAGRAM 3: WEIGHTS COMPARISON (AHP VS GINI)
-# --------------------------------------------------------
 
 def generate_weights_comparison_chart():
     print("[Simulation] Plotting Criteria Weights Chart...")
@@ -149,9 +137,7 @@ def generate_weights_comparison_chart():
     plt.close()
     print(" -> Success: Diagram 3 generated.")
 
-# --------------------------------------------------------
 # DIAGRAM 4: SENSITIVITY ANALYSIS OF ALPHA HURWICZ
-# --------------------------------------------------------
 
 def generate_sensitivity_analysis():
     print("[Simulation] Computing alpha-Hurwicz Sensitivity Curve...")
@@ -188,9 +174,7 @@ def generate_sensitivity_analysis():
     plt.close()
     print(" -> Success: Diagram 4 generated.")
 
-# --------------------------------------------------------
 # DIAGRAM 5: PERFORMANCE COMPREHENSIVE SCALABILITY CHART
-# --------------------------------------------------------
 
 def run_academic_evaluation_scalability():
     print("[Evaluation] Launching Scalability Analysis Chart...")
